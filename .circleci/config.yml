@@ -15,7 +15,7 @@ jobs:
   build:
     docker:
       - image: cypress/base:8
-      - working_directory: ~/app
+    working_directory: ~/app
     steps:
       - checkout
       - run:

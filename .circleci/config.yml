@@ -15,7 +15,6 @@ jobs:
   build:
     docker:
       - image: cypress/base:8
-    working_directory: ~/app
     steps:
       - run:
           name: Install Dependencies

@@ -19,9 +19,5 @@ jobs:
     steps:
       - run:
           name: Install Dependencies
-          command: yarn install
-      - save_cache:
-          key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
-          paths:
-            - ~/.cache  ## cache both yarn and Cypress!
-      - run: $(yarn bin)/cypress run --record --key 445d43ee-5f46-4144-b428-286de6535c1c
+          command: npm ci
+      - run: npx cypress run --record --key 445d43ee-5f46-4144-b428-286de6535c1c

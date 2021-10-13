@@ -1,9 +1,18 @@
 # to use orbs, must use version >= 2.1
-version: '2.1'
+version: 2.1
 orbs:
   cypress: cypress-io/cypress@1
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - cypress/install:
+          yarn: true
+
 workflows:
-  build:
+  test-app:
     jobs:
-      - cypress/run :
-        yarn: true
+      - example-job
+      - cypress/run

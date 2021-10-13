@@ -2,17 +2,8 @@
 version: 2.1
 orbs:
   cypress: cypress-io/cypress@1
-jobs:
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - cypress/install:
-          yarn: true
-
 workflows:
-  test-app:
+  build:
     jobs:
-      - example-job
-      - cypress/run
+      - cypress/run:
+          yarn: true

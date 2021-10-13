@@ -19,6 +19,8 @@ jobs:
           ## this enables colors in the output
           TERM: xterm
     working_directory: ~/app
+    env:
+      CYPRESS_RECORD_KEY: 445d43ee-5f46-4144-b428-286de6535c1c
     steps:
       - checkout
       - restore_cache:
@@ -33,4 +35,4 @@ jobs:
           key: v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/.cache ## cache both yarn and Cypress!
-      - run: $(yarn bin)/cypress run --record --key 445d43ee-5f46-4144-b428-286de6535c1c
+      - run: $(yarn bin)/cypress run --record

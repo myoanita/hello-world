@@ -9,4 +9,3 @@ workflows:
           yarn: true
           store_artifacts: true
           record: true
-          start: 'npm run --key 445d43ee-5f46-4144-b428-286de6535c1c'

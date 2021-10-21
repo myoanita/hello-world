@@ -12,15 +12,13 @@
 
 version: 2
 jobs:
-  build:
+  test_app:
     docker:
       - image: cypress/base:14.16.0
         environment:
           ## this enables colors in the output
           TERM: xterm
     working_directory: ~/app
-    # env:
-    #   CYPRESS_RECORD_KEY: 445d43ee-5f46-4144-b428-286de6535c1c
     steps:
       - checkout
       - restore_cache:
@@ -38,4 +36,30 @@ jobs:
       - run:
           name: "Setup custom environment variables"
           command: echo 'export CYPRESS_RECORD_KEY="445d43ee-5f46-4144-b428-286de6535c1c"' >> $BASH_ENV
-      - run: $(yarn bin)/cypress run --record
+      - run: 
+          name: "run cypress test"
+          command: $(yarn bin)/cypress run --record
+      - run:
+          name: Creating Dummy Artifacts
+          command: |
+            echo "my artifact file" > /tmp/art-1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/art-2;
+      - store_artifacts:
+          path: /tmp/art-1
+          destination: artifact-file
+      - store_artifacts:
+          path: /tmp/artifacts
+
+workflows:
+  version: 2
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test_app

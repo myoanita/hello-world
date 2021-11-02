@@ -12,7 +12,7 @@
 
 version: 2
 jobs:
-  test_app:
+  build:
     docker:
       - image: cypress/base:14.16.0
         environment:
@@ -51,15 +51,8 @@ jobs:
       - store_artifacts:
           path: /tmp/artifacts
 
-workflows:
+workflow:
   version: 2
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - main
+  test_app:
     jobs:
-      - test_app
+      - build
